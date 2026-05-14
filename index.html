@@ -3,112 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kimo Technology | كيمو تكنولوجي</title>
+    <title>Kimo Tech | برو بانل</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
-        body { font-family: 'Cairo', sans-serif; background: #0b0f1a; color: #e2e8f0; }
-        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        body { font-family: 'Cairo', sans-serif; background: #0f172a; color: #f1f5f9; }
+        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.05); }
         .active-tab { border-bottom: 3px solid #fbce07; color: #fbce07; }
         .hidden { display: none; }
+        input, select { background: rgba(255,255,255,0.05) !important; border: 1px solid rgba(255,255,255,0.1) !important; color: white !important; }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <nav class="p-4 glass sticky top-0 z-50 flex justify-between items-center border-b border-white/5">
-        <div class="flex items-center gap-2">
-            <h1 class="text-xl font-black uppercase tracking-widest text-white">KIMO <span class="text-yellow-400">TECH</span></h1>
-        </div>
-        <div id="user-info" class="hidden flex items-center gap-4">
-            <div class="text-right">
-                <p id="user-display-name" class="text-xs font-bold text-gray-400"></p>
-                <p id="user-balance" class="text-sm text-green-400 font-black">0.00$</p>
+    <!-- Nav -->
+    <nav class="p-4 glass sticky top-0 z-50 flex justify-between items-center">
+        <h1 class="text-xl font-black text-white">KIMO <span class="text-yellow-400">TECH</span></h1>
+        <div id="user-nav" class="hidden flex items-center gap-4">
+            <div class="text-left">
+                <p id="u-balance" class="text-green-400 font-black text-lg">0.00$</p>
+                <p id="u-email" class="text-[10px] text-gray-500"></p>
             </div>
-            <button id="logout-btn" class="bg-red-500/10 text-red-500 p-2 rounded-lg hover:bg-red-500 hover:text-white transition"><i class="fas fa-power-off"></i></button>
+            <button id="logout" class="text-red-500 bg-red-500/10 p-2 rounded-lg"><i class="fas fa-sign-out-alt"></i></button>
         </div>
     </nav>
 
-    <!-- Auth Section -->
-    <div id="auth-section" class="max-w-md mx-auto mt-20 p-8 glass rounded-3xl text-center">
-        <h2 class="text-2xl font-black mb-6">تسجيل الدخول</h2>
-        <button id="google-btn" class="w-full bg-white text-black font-bold py-3 rounded-xl mb-4 flex items-center justify-center gap-2">
-            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/action/google.svg" width="20"> Google
+    <!-- Auth -->
+    <div id="auth-box" class="max-w-md mx-auto mt-20 p-8 glass rounded-3xl text-center">
+        <h2 class="text-2xl font-black mb-6 text-yellow-400">سجل دخولك</h2>
+        <button id="login-google" class="w-full bg-white text-black font-bold py-3 rounded-xl flex items-center justify-center gap-2 mb-4">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/action/google.svg" width="20"> حساب جوجل
         </button>
-        <div class="text-gray-600 mb-4 text-sm">أو بالإيميل</div>
-        <input id="email" type="email" placeholder="الإيميل" class="w-full bg-white/5 p-3 rounded-xl mb-3 outline-none border border-white/10 focus:border-yellow-400">
-        <input id="password" type="password" placeholder="الباسورد" class="w-full bg-white/5 p-3 rounded-xl mb-6 outline-none border border-white/10 focus:border-yellow-400">
-        <button id="email-btn" class="w-full bg-yellow-400 text-black font-black py-3 rounded-xl">دخول</button>
     </div>
 
-    <!-- Main Content -->
-    <div id="main-content" class="hidden">
+    <!-- Interface -->
+    <div id="app" class="hidden">
         
-        <!-- Admin Panel -->
-        <div id="admin-panel" class="hidden p-6 bg-yellow-400/5 border-b border-yellow-400/20 mb-6">
-            <h3 class="font-bold text-yellow-400 mb-4"><i class="fas fa-tools ml-2"></i>لوحة الإدارة</h3>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-6">
-                <input id="new-name" placeholder="اسم الخدمة" class="bg-gray-800 p-2 rounded border border-gray-700">
-                <input id="new-price" type="number" step="0.01" placeholder="السعر $" class="bg-gray-800 p-2 rounded border border-gray-700">
-                <input id="new-api-id" placeholder="API ID" class="bg-gray-800 p-2 rounded border border-gray-700">
-                <select id="new-cat" class="bg-gray-800 p-2 rounded border border-gray-700">
-                    <option value="kimosmm">SMM</option>
-                    <option value="priemerkimo">Premium</option>
-                    <option value="videokimo">Video</option>
-                </select>
+        <!-- Admin Master Panel -->
+        <div id="admin-panel" class="hidden p-6 bg-yellow-400/5 border-b border-yellow-400/20">
+            <div class="max-w-6xl mx-auto">
+                <h3 class="text-yellow-400 font-bold mb-4 italic"><i class="fas fa-user-shield ml-2"></i>لوحة تحكم كيمو (الأدمن)</h3>
+                
+                <!-- Manage Balance -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6 bg-white/5 p-4 rounded-2xl">
+                    <input id="target-email" placeholder="إيميل المستخدم" class="p-2 rounded-lg">
+                    <input id="amount-val" type="number" placeholder="المبلغ $" class="p-2 rounded-lg">
+                    <select id="balance-action" class="p-2 rounded-lg">
+                        <option value="add">إضافة رصيد (+)</option>
+                        <option value="sub">سحب رصيد (-)</option>
+                    </select>
+                    <button onclick="adjustBalance()" class="bg-green-600 text-white font-bold rounded-lg hover:bg-green-700 transition">تنفيذ العملية</button>
+                </div>
+
+                <!-- Add Service -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 bg-white/5 rounded-2xl">
+                    <input id="s-name" placeholder="اسم الخدمة" class="p-2 rounded-lg">
+                    <input id="s-price" type="number" step="0.01" placeholder="السعر لكل 1000" class="p-2 rounded-lg">
+                    <select id="s-cat" class="p-2 rounded-lg">
+                        <option value="kimosmm">رشق SMM</option>
+                        <option value="priemerkimo">حسابات Premium</option>
+                        <option value="videokimo">فيديوهات KIMO</option>
+                    </select>
+                    <button onclick="saveService()" class="bg-yellow-400 text-black font-bold rounded-lg">إضافة خدمة</button>
+                </div>
             </div>
-            <button onclick="addService()" class="bg-white text-black px-6 py-2 rounded font-bold">إضافة خدمة بـ ID عشوائي</button>
-            
-            <div class="mt-8">
-                <h4 class="text-sm font-bold text-gray-400 mb-3 uppercase">طلبات الشحن والخدمات المعلقة:</h4>
-                <div id="admin-orders-control" class="grid gap-2"></div>
+        </div>
+
+        <!-- Main Navigation -->
+        <div class="flex overflow-x-auto gap-6 p-4 border-b border-white/5 sticky top-[72px] bg-[#0f172a] z-40">
+            <button onclick="tab('kimosmm')" id="t-kimosmm" class="tab-btn font-bold active-tab whitespace-nowrap">الرشق</button>
+            <button onclick="tab('priemerkimo')" id="t-priemerkimo" class="tab-btn font-bold text-gray-500 whitespace-nowrap">Premium</button>
+            <button onclick="tab('videokimo')" id="t-videokimo" class="tab-btn font-bold text-gray-500 whitespace-nowrap">فيديوهات</button>
+            <button onclick="tab('orders')" id="t-orders" class="tab-btn font-bold text-gray-500 whitespace-nowrap">طلباتي</button>
+            <button onclick="tab('tickets')" id="t-tickets" class="tab-btn font-bold text-gray-500 whitespace-nowrap">التذاكر</button>
+            <button onclick="tab('recharge')" id="t-recharge" class="tab-btn font-bold text-green-500 whitespace-nowrap">شحن رصيد</button>
+        </div>
+
+        <!-- Sections -->
+        <div id="view-services" class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto"></div>
+        
+        <div id="view-orders" class="hidden p-6 max-w-4xl mx-auto grid gap-4"></div>
+
+        <div id="view-tickets" class="hidden p-6 max-w-4xl mx-auto">
+            <div class="flex justify-between mb-6">
+                <h3 class="text-xl font-bold">تذاكر الدعم</h3>
+                <button onclick="openTicketForm()" class="bg-blue-600 px-4 py-2 rounded-lg text-sm">فتح تذكرة جديدة</button>
             </div>
+            <div id="tickets-list" class="grid gap-3"></div>
         </div>
 
-        <!-- Navigation -->
-        <div class="flex justify-center gap-6 mb-8 sticky top-20 bg-[#0b0f1a] z-40 p-2 border-b border-white/5">
-            <button onclick="switchTab('kimosmm')" id="tab-kimosmm" class="pb-2 font-bold active-tab">الخدمات</button>
-            <button onclick="switchTab('my-orders')" id="tab-my-orders" class="pb-2 font-bold text-gray-500">طلباتي</button>
-            <button onclick="switchTab('recharge')" id="tab-recharge" class="pb-2 font-bold text-green-500">شحن</button>
+        <div id="view-recharge" class="hidden p-6 max-w-xl mx-auto glass rounded-3xl text-center">
+            <h3 class="text-2xl font-bold text-yellow-400 mb-4">اشحن محفظتك</h3>
+            <p class="text-gray-400 mb-6 italic">ارسل المبلغ لـ 01112215950 ثم ارفع الطلب</p>
+            <input id="r-phone" placeholder="رقمك المحول منه" class="w-full p-4 rounded-xl mb-4">
+            <input id="r-amount" type="number" placeholder="المبلغ بالمصري" class="w-full p-4 rounded-xl mb-6">
+            <button onclick="rechargeReq()" class="w-full bg-green-600 py-4 rounded-xl font-black">إرسال الطلب للأدمن</button>
         </div>
-
-        <!-- Services Grid -->
-        <div id="services-grid" class="p-4 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto"></div>
-
-        <!-- My Orders Tab -->
-        <div id="my-orders-section" class="hidden p-4 max-w-4xl mx-auto">
-            <h3 class="text-xl font-bold mb-6 italic text-yellow-400">تتبع طلباتك:</h3>
-            <div id="user-orders-list" class="grid gap-4"></div>
-        </div>
-
-        <!-- Recharge Section -->
-        <div id="recharge-section" class="hidden p-6 max-w-xl mx-auto glass rounded-3xl text-center">
-            <h3 class="text-2xl font-bold text-yellow-400 mb-2">شحن الرصيد</h3>
-            <p class="text-sm text-gray-400 mb-6">سعر الصرف: 1$ = 54 EGP</p>
-            <div class="p-4 bg-black/20 rounded-xl mb-6 font-mono text-xl">01112215950</div>
-            <input id="rec-phone" placeholder="رقمك" class="w-full bg-white/5 p-3 rounded-xl mb-3 border border-white/10">
-            <input id="rec-egy" type="number" placeholder="المبلغ بالمصري" class="w-full bg-white/5 p-3 rounded-xl mb-6 border border-white/10">
-            <button onclick="requestRecharge()" class="w-full bg-green-600 py-3 rounded-xl font-bold">إرسال الطلب</button>
-        </div>
-
     </div>
 
     <!-- Order Modal -->
-    <div id="order-modal" class="hidden fixed inset-0 z-[100] bg-black/80 backdrop-blur flex items-center justify-center p-4">
-        <div class="glass max-w-md w-full p-8 rounded-3xl">
-            <h3 id="m-name" class="text-xl font-bold text-yellow-400 mb-4"></h3>
-            <input id="o-link" placeholder="الرابط (Link)" class="w-full bg-white/5 p-3 rounded-xl mb-4 border border-white/10 outline-none">
-            <input id="o-qty" type="number" placeholder="الكمية" class="w-full bg-white/5 p-3 rounded-xl mb-6 border border-white/10 outline-none">
-            <button id="confirm-btn" class="w-full bg-yellow-400 text-black py-3 rounded-xl font-bold">تأكيد الطلب</button>
-            <button onclick="closeModal()" class="w-full mt-2 text-gray-500 text-sm">إلغاء</button>
+    <div id="order-modal" class="hidden fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4">
+        <div class="glass max-w-md w-full p-8 rounded-3xl border-t-4 border-yellow-400">
+            <h3 id="modal-s-name" class="text-xl font-black mb-6"></h3>
+            <input id="modal-link" placeholder="الرابط (Link)" class="w-full p-4 rounded-xl mb-4 outline-none">
+            <input id="modal-qty" type="number" oninput="calcPrice()" placeholder="الكمية" class="w-full p-4 rounded-xl mb-4 outline-none">
+            <div class="flex justify-between p-4 bg-white/5 rounded-xl mb-6">
+                <span class="text-gray-400">التكلفة المتوقعة:</span>
+                <span id="modal-cost" class="font-black text-yellow-400">0.00$</span>
+            </div>
+            <button id="confirm-order" class="w-full bg-yellow-400 text-black py-4 rounded-xl font-black shadow-lg">تأكيد وشراء</button>
+            <button onclick="closeModal()" class="w-full mt-4 text-gray-500">إلغاء</button>
         </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, doc, updateDoc, deleteDoc, query, where, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, doc, setDoc, getDoc, addDoc, collection, query, where, onSnapshot, serverTimestamp, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = { 
             apiKey: "AIzaSyB48E8FEkT2t_U9kUZYtWLJBxpCtMrAQZY",
@@ -118,127 +130,160 @@
             messagingSenderId: "27878132504",
             appId: "1:27878132504:web:5559659d4a2342747cac6d"
         };
+
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
         const ADMIN = "kareemwael0213@gmail.com";
-        let user = null;
+        let user = null, userData = { balance: 0 }, activeService = null;
 
-        onAuthStateChanged(auth, u => {
+        onAuthStateChanged(auth, async u => {
             if (u) {
                 user = u;
-                document.getElementById('auth-section').classList.add('hidden');
-                document.getElementById('main-content').classList.remove('hidden');
-                document.getElementById('user-info').classList.remove('hidden');
-                document.getElementById('user-display-name').innerText = u.email;
-                if (u.email === ADMIN) {
-                    document.getElementById('admin-panel').classList.remove('hidden');
-                    loadAdminOrders();
-                }
-                switchTab('kimosmm');
-                loadUserOrders();
+                document.getElementById('auth-box').classList.add('hidden');
+                document.getElementById('app').classList.remove('hidden');
+                document.getElementById('user-nav').classList.remove('hidden');
+                document.getElementById('u-email').innerText = u.email;
+                if (u.email === ADMIN) document.getElementById('admin-panel').classList.remove('hidden');
+                
+                // Sync User Wallet
+                const uDoc = doc(db, "users", u.uid);
+                onSnapshot(uDoc, d => {
+                    if(d.exists()) {
+                        userData = d.data();
+                        document.getElementById('u-balance').innerText = userData.balance.toFixed(2) + "$";
+                    } else {
+                        setDoc(uDoc, { email: u.email, balance: 0 });
+                    }
+                });
+                tab('kimosmm');
             } else {
-                document.getElementById('auth-section').classList.remove('hidden');
-                document.getElementById('main-content').classList.add('hidden');
+                document.getElementById('auth-box').classList.remove('hidden');
+                document.getElementById('app').classList.add('hidden');
             }
         });
 
-        document.getElementById('google-btn').onclick = () => signInWithPopup(auth, new GoogleAuthProvider());
-        document.getElementById('logout-btn').onclick = () => signOut(auth);
+        document.getElementById('login-google').onclick = () => signInWithPopup(auth, new GoogleAuthProvider());
+        document.getElementById('logout').onclick = () => signOut(auth);
 
-        window.switchTab = (t) => {
-            ['kimosmm', 'my-orders', 'recharge'].forEach(id => {
-                document.getElementById(`tab-${id}`).classList.remove('active-tab');
-                document.getElementById(`tab-${id}`).classList.add('text-gray-500');
-            });
-            document.getElementById(`tab-${t}`).classList.add('active-tab');
-            document.getElementById('services-grid').classList.toggle('hidden', t !== 'kimosmm');
-            document.getElementById('my-orders-section').classList.toggle('hidden', t !== 'my-orders');
-            document.getElementById('recharge-section').classList.toggle('hidden', t !== 'recharge');
-            if(t === 'kimosmm') loadServices();
+        window.tab = (t) => {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.replace('active-tab', 'text-gray-500'));
+            document.getElementById(`t-${t}`).classList.replace('text-gray-500', 'active-tab');
+            
+            document.getElementById('view-services').classList.toggle('hidden', !['kimosmm','priemerkimo','videokimo'].includes(t));
+            document.getElementById('view-orders').classList.toggle('hidden', t !== 'orders');
+            document.getElementById('view-tickets').classList.toggle('hidden', t !== 'tickets');
+            document.getElementById('view-recharge').classList.toggle('hidden', t !== 'recharge');
+
+            if(['kimosmm','priemerkimo','videokimo'].includes(t)) loadServices(t);
+            if(t === 'orders') loadOrders();
+            if(t === 'tickets') loadTickets();
         };
 
-        async function loadServices() {
-            onSnapshot(collection(db, "services"), snap => {
-                const grid = document.getElementById('services-grid');
-                grid.innerHTML = '';
+        // Services Logic
+        async function loadServices(cat) {
+            const q = query(collection(db, "services"), where("category", "==", cat));
+            onSnapshot(q, snap => {
+                const container = document.getElementById('view-services');
+                container.innerHTML = '';
                 snap.forEach(d => {
                     const s = d.data();
-                    grid.innerHTML += `
-                        <div class="glass p-6 rounded-3xl relative group">
-                            ${user.email === ADMIN ? `<button onclick="deleteService('${d.id}')" class="absolute top-2 left-2 text-red-500 opacity-0 group-hover:opacity-100"><i class="fas fa-trash"></i></button>` : ''}
-                            <h4 class="font-bold mb-2">${s.name}</h4>
-                            <p class="text-yellow-400 font-black text-xl mb-4">${s.price}$</p>
-                            <button onclick="openModal('${d.id}', '${s.name}', ${s.price})" class="w-full bg-white/5 py-2 rounded-xl hover:bg-yellow-400 hover:text-black transition">طلب</button>
+                    container.innerHTML += `
+                        <div class="glass p-6 rounded-3xl border-b-2 border-transparent hover:border-yellow-400 transition">
+                            <h4 class="font-bold mb-4">${s.name}</h4>
+                            <p class="text-2xl font-black text-yellow-400 mb-6">${s.price}$ <span class="text-xs text-gray-500">/1k</span></p>
+                            <button onclick="openOrderModal('${d.id}', '${s.name}', ${s.price})" class="w-full bg-white/5 py-3 rounded-xl font-bold hover:bg-white hover:text-black transition">شراء الآن</button>
                         </div>`;
                 });
             });
         }
 
-        window.addService = async () => {
-            const name = document.getElementById('new-name').value;
-            const price = parseFloat(document.getElementById('new-price').value);
-            const api_id = document.getElementById('new-api-id').value;
-            const category = document.getElementById('new-cat').value;
-            await addDoc(collection(db, "services"), { name, price, api_id, category, createdAt: serverTimestamp() });
-            alert("تمت الإضافة بـ ID فريد!");
-        };
-
-        window.deleteService = async (id) => { if(confirm("أكيد هتمسح الخدمة؟")) await deleteDoc(doc(db, "services", id)); };
-
-        window.openModal = (id, name, price) => {
-            document.getElementById('m-name').innerText = name;
+        window.openOrderModal = (id, name, price) => {
+            activeService = { id, name, price };
+            document.getElementById('modal-s-name').innerText = name;
             document.getElementById('order-modal').classList.remove('hidden');
-            document.getElementById('confirm-btn').onclick = () => submitOrder(id, name, price);
         };
+
         window.closeModal = () => document.getElementById('order-modal').classList.add('hidden');
 
-        async function submitOrder(id, name, price) {
-            const link = document.getElementById('o-link').value;
-            const qty = document.getElementById('o-qty').value;
+        window.calcPrice = () => {
+            const qty = document.getElementById('modal-qty').value;
+            const cost = (qty / 1000) * activeService.price;
+            document.getElementById('modal-cost').innerText = cost.toFixed(2) + "$";
+        };
+
+        document.getElementById('confirm-order').onclick = async () => {
+            const qty = document.getElementById('modal-qty').value;
+            const cost = (qty / 1000) * activeService.price;
+            const link = document.getElementById('modal-link').value;
+
+            if(!link || qty <= 0) return alert("دخل البيانات صح يا كيمو!");
+            if(userData.balance < cost) return alert("رصيدك غير كافي! اشحن وكمل سيطرتك.");
+
+            // Process Order
             await addDoc(collection(db, "orders"), {
-                uid: user.uid, email: user.email, serviceName: name, 
-                link, qty, status: "قيد الانتظار", time: serverTimestamp()
+                uid: user.uid, email: user.email, service: activeService.name, cost, link, qty, status: "قيد الانتظار", time: serverTimestamp()
             });
-            alert("تم استلام طلبك!");
+            // Deduct Balance
+            await updateDoc(doc(db, "users", user.uid), { balance: increment(-cost) });
+            
+            alert("تم خصم الرصيد وتنفيذ الطلب بنجاح!");
             closeModal();
+        };
+
+        // Admin: Adjust Balance
+        window.adjustBalance = async () => {
+            const email = document.getElementById('target-email').value;
+            const amt = parseFloat(document.getElementById('amount-val').value);
+            const act = document.getElementById('balance-action').value;
+            
+            const q = query(collection(db, "users"), where("email", "==", email));
+            onSnapshot(q, snap => {
+                snap.forEach(async d => {
+                    const finalAmt = act === 'add' ? amt : -amt;
+                    await updateDoc(doc(db, "users", d.id), { balance: increment(finalAmt) });
+                    alert("تم تعديل المحفظة بنجاح!");
+                });
+            });
+        };
+
+        // Tickets Logic
+        window.openTicketForm = async () => {
+            const msg = prompt("اكتب مشكلتك هنا:");
+            if(msg) await addDoc(collection(db, "tickets"), { uid: user.uid, email: user.email, msg, status: "مفتوحة", time: serverTimestamp() });
+        };
+
+        function loadTickets() {
+            const q = query(collection(db, "tickets"), where("uid", "==", user.uid));
+            onSnapshot(q, snap => {
+                const list = document.getElementById('tickets-list');
+                list.innerHTML = '';
+                snap.forEach(d => {
+                    const t = d.data();
+                    list.innerHTML += `<div class="glass p-4 rounded-xl flex justify-between"><span>${t.msg}</span><b class="text-blue-400">${t.status}</b></div>`;
+                });
+            });
         }
 
-        function loadUserOrders() {
+        window.saveService = async () => {
+            const name = document.getElementById('s-name').value;
+            const price = parseFloat(document.getElementById('s-price').value);
+            const category = document.getElementById('s-cat').value;
+            await addDoc(collection(db, "services"), { name, price, category });
+            alert("الخدمة نورت الموقع!");
+        };
+
+        function loadOrders() {
             const q = query(collection(db, "orders"), where("uid", "==", user.uid));
             onSnapshot(q, snap => {
-                const list = document.getElementById('user-orders-list');
-                list.innerHTML = '';
+                const v = document.getElementById('view-orders');
+                v.innerHTML = '';
                 snap.forEach(d => {
                     const o = d.data();
-                    list.innerHTML += `
-                        <div class="glass p-4 rounded-2xl flex justify-between items-center border-r-4 border-yellow-400">
-                            <div><p class="font-bold">${o.serviceName}</p><p class="text-xs text-gray-500">${o.link}</p></div>
-                            <span class="text-xs font-bold px-3 py-1 rounded-full ${o.status === 'اكتمل' ? 'bg-green-500/20 text-green-400' : 'bg-blue-500/20 text-blue-400'}">${o.status}</span>
-                        </div>`;
+                    v.innerHTML += `<div class="glass p-5 rounded-2xl flex justify-between"><div><b>${o.service}</b><p class="text-xs">${o.link}</p></div><span class="text-yellow-400">${o.status}</span></div>`;
                 });
             });
         }
-
-        function loadAdminOrders() {
-            onSnapshot(collection(db, "orders"), snap => {
-                const list = document.getElementById('admin-orders-control');
-                list.innerHTML = '';
-                snap.forEach(d => {
-                    const o = d.data();
-                    list.innerHTML += `
-                        <div class="bg-gray-800 p-3 rounded flex justify-between items-center text-xs">
-                            <span>${o.email} | ${o.serviceName} | ${o.status}</span>
-                            <div class="flex gap-2">
-                                <button onclick="updateStatus('${d.id}', 'جاري التنفيذ')" class="bg-blue-600 px-2 py-1 rounded">تنفيذ</button>
-                                <button onclick="updateStatus('${d.id}', 'اكتمل')" class="bg-green-600 px-2 py-1 rounded">اكتمال</button>
-                            </div>
-                        </div>`;
-                });
-            });
-        }
-
-        window.updateStatus = async (id, s) => { await updateDoc(doc(db, "orders", id), { status: s }); };
     </script>
 </body>
 </html>
